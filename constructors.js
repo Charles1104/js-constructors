@@ -98,13 +98,12 @@ function Spellcaster(name, health, mana) {
    * @param  {number} damage  Amount of damage to deal to the spellcaster
    */
 
-Spellcaster.prototype.inflictDamage = function(damage) {
-  if (damage >= this.health) {
-    this.isAlive = false;
+Spellcaster.prototype.inflictDamage = function(num) {
+  this.health -= num;
+
+  if (this.health <= 0) {
     this.health = 0;
-  }
-  else {
-    this.health -= damage;
+    this.isAlive = false;
   }
 };
 
@@ -118,12 +117,12 @@ Spellcaster.prototype.inflictDamage = function(damage) {
    * @return {boolean} success  Whether mana was successfully spent.
    */
 
-Spellcaster.prototype.spendMana = function(cost) {
-  if (cost >= this.mana) {
+Spellcaster.prototype.spendMana = function(num) {
+  if (num > this.mana) {
     return false;
   }
   else {
-    this.mana -= cost;
+    this.mana -= num;
     return true;
   }
 };
@@ -175,3 +174,8 @@ Spellcaster.prototype.invoke = function(spell, target) {
   }
 
 };
+/*
+var loren = new Spellcaster('LorenTest', 300, 125);
+var gust = new Spell('Gust', loren.mana, 'Creates a gentle breeze.');
+*/
+
